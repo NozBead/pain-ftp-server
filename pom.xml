@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>pain</groupId>
+	<artifactId>ftpserver</artifactId>
+	<version>1.0</version>
+
+	<name>ftpserver</name>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<anzo-root>${project.build.directory}/generated-root</anzo-root>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>3.0.0</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<mkdir dir="${anzo-root}/docs" />
+								<mkdir dir="${anzo-root}/workspace/sr1" />
+								<echo file="${anzo-root}/docs/notes">J'adore vraiment beaucoup l'école
+Réunion du 12/01 : Résumé, tous le monde à la flemme
+								</echo>
+								<echo file="${anzo-root}/workspace/sr1/ftp.java">public class Ftp {
+	public static void main(String args[]) {
+		ServerSocket server = new ServerSocket(21);
+		Socket client = server.accept();
+		PrintWriter out = new PrintWriter(new BufferedWriter(new
+		OutputStreamWriter(client.getOutputStream())));
+		out.println("220 Hello\r\n");
+	}
+}
+								</echo>
+								<echo file="${anzo-root}/docs/key">lnbvCLxFFKXhTIjJgjTjCTZFeMnI+pOS64La5KhDzIzdSscFA5y97mv56twnvKZn30WbBacX0PmS
+tjmVEiip5JzDTZdomuaI8dVtXhVc8709z4gE5Ce01TamqLyp4sQuc5puT4JtpnMB+p3CKIC9eqnA
+nfq+k3J/sWnsRAUAuge+WIli/GuovwcUF+c+4eugBZYlGCMJ7PcDTspaLZVMLT4rd8sZBFfTUQdF
+r8CZ3phtXzjWgvimK2InXPck2g0f7bmGgy+Ixdxzb6xh247BonuOfU2+VznHq1+OtMnz1dIecoKe
+zkMoiLK1/rGE6CrfAahF2lRxTSwp8y9zfZesAQ==
+								</echo>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>pain.ftpserver.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
